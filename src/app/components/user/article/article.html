@@ -1,1 +1,48 @@
-<p>article works!</p>
+<div class="article">
+  @if (loading()) {
+    <div class="center">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    </div>
+  } @else {
+    @if (error()) {
+      <div class="error">
+        <p>{{ error() }}</p>
+        <div class="actions">
+          <button mat-stroked-button color="primary" (click)="back()">
+            <mat-icon>arrow_back</mat-icon>
+            Back
+          </button>
+        </div>
+      </div>
+    } @else {
+      @if (article(); as a) {
+        <header class="header">
+          <button mat-icon-button aria-label="Back" (click)="back()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <h1 class="title">{{ a.title }}</h1>
+          <span class="grow"></span>
+          <button mat-stroked-button color="accent" (click)="edit()">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+          <button mat-raised-button color="warn" (click)="delete()">
+            <mat-icon>delete</mat-icon>
+            Delete
+          </button>
+        </header>
+
+        <div class="meta-line">
+          <mat-icon aria-hidden="true">schedule</mat-icon>
+          <span>{{ a.createdAt | date: 'fullDate' }} at {{ a.createdAt | date: 'shortTime' }}</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <section class="content">
+          {{ a.content }}
+        </section>
+      }
+    }
+  }
+</div>

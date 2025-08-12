@@ -1,0 +1,16 @@
+.full {
+  width: 100%;
+}
+
+.error {
+  color: var(--mat-sys-error);
+  margin-top: 0.5rem;
+}
+
+.btn-spinner {
+  margin-right: 0.5rem;
+}
+
+:host ::ng-deep .mat-mdc-form-field .mdc-notched-outline__notch {
+    border-right: 0 !important;
+}

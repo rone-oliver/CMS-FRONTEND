@@ -23,6 +23,16 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./components/user/dashboard/dashboard').then((m) => m.Dashboard),
+      },
+      {
+        path: 'articles',
+        loadComponent: () =>
+          import('./components/user/articles/articles').then((m) => m.UserArticles),
+      },
+      {
+        path: 'articles/:id',
+        loadComponent: () => 
+          import('./components/user/article/article').then((m) => m.Article),
       }
     ]
   },

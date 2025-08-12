@@ -1,1 +1,63 @@
-<p>articles works!</p>
+<div class="articles">
+  @if (loading()) {
+    <div class="center">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    </div>
+  } @else {
+    @if (error()) {
+      <mat-card>
+        <mat-card-content>{{ error() }}</mat-card-content>
+      </mat-card>
+    } @else {
+      @if (articles().length === 0) {
+        <mat-card>
+          <mat-card-content>You haven't created any articles yet.</mat-card-content>
+        </mat-card>
+        <div class="center" style="margin-top: 12px;">
+          <button mat-raised-button color="primary" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+            New Article
+          </button>
+        </div>
+      } @else {
+        <div class="list-actions" style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
+          <button mat-raised-button color="primary" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+            New Article
+          </button>
+        </div>
+        <div class="grid">
+          @for (a of articles(); track a.id) {
+            <mat-card class="article-card">
+              <mat-card-header>
+                <mat-card-title>{{ a.title }}</mat-card-title>
+                <mat-card-subtitle class="meta">
+                  <mat-icon aria-hidden="true">schedule</mat-icon>
+                  {{ a.createdAt | date: 'medium' }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p class="excerpt">{{ a.content }}</p>
+              </mat-card-content>
+              <mat-card-actions class="actions">
+                <button mat-stroked-button color="primary" (click)="onView(a)">
+                  <mat-icon>visibility</mat-icon>
+                  View
+                </button>
+                <button mat-stroked-button color="accent" (click)="onEdit(a)">
+                  <mat-icon>edit</mat-icon>
+                  Edit
+                </button>
+                <span class="grow"></span>
+                <button mat-raised-button color="warn" (click)="onDelete(a)">
+                  <mat-icon>delete</mat-icon>
+                  Delete
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
+    }
+  }
+</div>

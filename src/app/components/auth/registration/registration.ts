@@ -8,6 +8,7 @@ import {
 
 import { Auth } from '../../../services/auth';
 import { AuthForm, AuthField } from '../../shared/auth-form/auth-form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -19,6 +20,7 @@ import { AuthForm, AuthField } from '../../shared/auth-form/auth-form';
 export class Registration {
   private readonly _fb = inject(FormBuilder);
   private readonly _authService = inject(Auth);
+  private readonly _router = inject(Router);
 
   loading = false;
 
@@ -56,6 +58,7 @@ export class Registration {
       .subscribe({
         next: (res) => {
           console.log('registration success', res);
+          this._router.navigate(['/login']);
         },
         error: (err) => {
           console.error('registration error', err);

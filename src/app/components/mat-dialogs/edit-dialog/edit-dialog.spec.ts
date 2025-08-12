@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArticleModal } from './article-modal';
+import { EditDialog } from './edit-dialog';
 
-describe('ArticleModal', () => {
-  let component: ArticleModal;
-  let fixture: ComponentFixture<ArticleModal>;
+describe('EditDialog', () => {
+  let component: EditDialog;
+  let fixture: ComponentFixture<EditDialog>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ArticleModal],
-    }).compileComponents();
+      imports: [EditDialog]
+    })
+    .compileComponents();
 
-    fixture = TestBed.createComponent(ArticleModal);
+    fixture = TestBed.createComponent(EditDialog);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

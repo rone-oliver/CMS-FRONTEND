@@ -1,0 +1,55 @@
+.article {
+    padding: 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem);
+    font-weight: 600;
+}
+
+.meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--mat-sys-on-surface-variant);
+}
+
+.meta-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--mat-sys-on-surface-variant);
+}
+
+.content {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.grow {
+    flex: 1 1 auto;
+}

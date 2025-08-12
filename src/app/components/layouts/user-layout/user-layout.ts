@@ -27,4 +27,12 @@ export class UserLayout {
       }
     });
   }
+
+  dashboard() {
+    this._router.navigate(['/user/dashboard']);
+  }
+
+  articles() {
+    this._router.navigate(['/user/articles']);
+  }
 }

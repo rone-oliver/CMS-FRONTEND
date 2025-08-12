@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { Auth } from '../../../services/auth';
 import { AuthForm, AuthField } from '../../shared/auth-form/auth-form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ import { AuthForm, AuthField } from '../../shared/auth-form/auth-form';
 export class Login {
   private readonly _fb = inject(FormBuilder);
   private readonly _authService = inject(Auth);
+  private readonly _router = inject(Router);
 
   loading = false;
 
@@ -53,6 +55,7 @@ export class Login {
     this._authService.login({ email, password }).subscribe({
       next: (res) => {
         console.log('login success', res);
+        this._router.navigate(['/user/dashboard']);
       },
       error: (err) => {
         console.error('login error', err);

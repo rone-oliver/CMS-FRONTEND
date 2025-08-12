@@ -1,1 +1,42 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+    @if (loading()) {
+    <div class="center">
+        <mat-spinner diameter="40" />
+    </div>
+    } @else if (error()) {
+    <mat-card class="error">
+        <mat-card-content>{{ error() }}</mat-card-content>
+    </mat-card>
+    } @else {
+    @if (articles().length === 0) {
+    <mat-card>
+        <mat-card-content>No articles found.</mat-card-content>
+    </mat-card>
+    } @else {
+    @for (a of articles(); track a.id) {
+    <mat-card class="article-card">
+        <mat-card-header>
+            <mat-card-title>{{ a.title }}</mat-card-title>
+            <mat-card-subtitle class="meta">
+                <mat-icon aria-hidden="true">schedule</mat-icon>
+                {{ a.createdAt | date: 'medium' }}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="excerpt">{{ a.content }}</p>
+        </mat-card-content>
+        <mat-card-actions class="actions">
+            <button mat-stroked-button color="primary">Read more</button>
+            <span class="grow"></span>
+            <button mat-icon-button aria-label="Like">
+                <mat-icon>favorite_border</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Share">
+                <mat-icon>share</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+    }
+    }
+    }
+</div>

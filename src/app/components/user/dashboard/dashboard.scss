@@ -1,0 +1,45 @@
+.dashboard {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.article-card {
+    transition: box-shadow 200ms ease, transform 200ms ease;
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--mat-elevation-z8);
+    }
+}
+
+.meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: var(--mat-sys-on-surface-variant);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+}
+
+.grow { 
+    flex: 1 1 auto; 
+}

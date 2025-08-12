@@ -4,6 +4,7 @@ import { tap } from 'rxjs';
 
 import { Token } from './token';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class Auth {
   private readonly _http = inject(HttpClient);
   private readonly _tokenService = inject(Token);
   private readonly _url = environment.BACKEND_URL;
+  private readonly _router = inject(Router);
 
   login({ email, password }: { email: string; password: string }) {
     return this._http
@@ -35,6 +37,7 @@ export class Auth {
       .pipe(
         tap(() => {
           this._tokenService.removeToken();
+          this._router.navigate(['/login']);
         }),
       );
   }
@@ -48,5 +51,14 @@ export class Auth {
     return this._http.post(`${this._url}/auth/register`, body, {
       withCredentials: true,
     });
+  }
+
+  refreshToken() {
+    return this._http.post<{ accessToken: string }>(`${this._url}/auth/refresh`, {}, { withCredentials: true })
+      .pipe(
+        tap((res: { accessToken: string }) => {
+          this._tokenService.setToken(res.accessToken);
+        }),
+      );
   }
 }

@@ -1,5 +1,51 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Token } from '../services/token';
+import { environment } from '../../environments/environment';
+import { catchError, switchMap, throwError } from 'rxjs';
+import { Auth } from '../services/auth';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
-  return next(req);
+  const tokenService = inject(Token);
+  const auth = inject(Auth);
+  const isAuthRoute = req.url.startsWith(`${environment.BACKEND_URL}/auth`);
+
+  if (!isAuthRoute) {
+    const token = tokenService.getToken();
+    if (!token) {
+      auth.logout();
+      return throwError(() => new Error('No token found. User logged out.'));
+    }
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
+  }
+  return next(req).pipe(
+    catchError((err: HttpErrorResponse) => {
+      if(isAuthRoute || err.status !== 401) return throwError(()=> err);
+
+      if(err.status === 401 && err.error.isAccessTokenExpired){
+        const refreshToken$ = auth.refreshToken();
+        return refreshToken$.pipe(
+          switchMap(() => {
+            const retried = req.clone({
+              setHeaders: {
+                Authorization: `Bearer ${tokenService.getToken()}`
+              },
+              withCredentials: true,
+            });
+            return next(retried);
+          }),
+          catchError(e => {
+            auth.logout();
+            return throwError(() => e);
+          }),
+        );
+      }
+      return throwError(() => err);
+    })
+  );
 };

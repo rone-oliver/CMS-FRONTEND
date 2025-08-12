@@ -1,0 +1,40 @@
+<div class="auth-container">
+  <mat-card>
+    @if (title()) {
+      <mat-card-header>
+        <mat-card-title>{{ title() }}</mat-card-title>
+      </mat-card-header>
+    }
+    <mat-card-content>
+      <form [formGroup]="form()" (ngSubmit)="onSubmit()">
+        @for (field of fields(); track field.key) {
+          <mat-form-field appearance="outline">
+            <mat-label>{{ field.label }}</mat-label>
+            <input
+              matInput
+              [type]="field.type ?? 'text'"
+              [formControlName]="field.key"
+              [placeholder]="field.label"
+            />
+            @if (form().get(field.key)?.hasError("required")) {
+              <mat-error>{{ field.label }} is required</mat-error>
+            }
+            @if (
+              field.key === "email" && form().get(field.key)?.hasError("email")
+            ) {
+              <mat-error>Please enter a valid email address</mat-error>
+            }
+          </mat-form-field>
+        }
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form().invalid || loading()"
+        >
+          {{ submitLabel() }}
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

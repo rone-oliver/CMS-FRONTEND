@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Auth } from '../../../services/auth';
 import { AuthForm, AuthField } from '../../shared/auth-form/auth-form';
@@ -31,6 +31,7 @@ export class Login {
   private readonly _fb = inject(FormBuilder);
   private readonly _authService = inject(Auth);
   private readonly _router = inject(Router);
+  private readonly _route = inject(ActivatedRoute);
 
   loading = false;
 
@@ -54,7 +55,8 @@ export class Login {
     this.loading = true;
     this._authService.login({ email, password }).subscribe({
       next: (res) => {
-        this._router.navigate(['/user/dashboard']);
+        const returnUrl = this._route.snapshot.queryParamMap.get('returnUrl');
+        this._router.navigateByUrl(returnUrl || '/user/dashboard');
       },
       error: (err) => {
         console.error('login error', err);

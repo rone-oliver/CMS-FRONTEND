@@ -3,17 +3,18 @@ import { Routes } from '@angular/router';
 import { Login } from './components/auth/login/login';
 import { Registration } from './components/auth/registration/registration';
 import { UserLayout } from './components/layouts/user-layout/user-layout';
-import { Dashboard } from './components/user/dashboard/dashboard';
-import { authGuard } from './guards/auth-guard';
+import { authGuard, guestGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
     path: 'login',
     component: Login,
+    canActivate: [guestGuard],
   },
   {
     path: 'register',
     component: Registration,
+    canActivate: [guestGuard],
   },
   {
     path: 'user',

@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Token } from '../services/token';
 import { environment } from '../../environments/environment';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, switchMap, throwError, take } from 'rxjs';
 import { Auth } from '../services/auth';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
@@ -13,7 +13,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   if (!isAuthRoute) {
     const token = tokenService.getToken();
     if (!token) {
-      auth.logout();
+      // Must subscribe, otherwise logout won't execute
+      auth.logout().pipe(take(1)).subscribe();
       return throwError(() => new Error('No token found. User logged out.'));
     }
     req = req.clone({
@@ -27,9 +28,19 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((err: HttpErrorResponse) => {
       if(isAuthRoute || err.status !== 401) return throwError(()=> err);
 
-      if(err.status === 401 && err.error.isAccessTokenExpired){
-        const refreshToken$ = auth.refreshToken();
-        return refreshToken$.pipe(
+      if(err.status === 401 && err.error?.isAccessTokenExpired){
+        const refresh$ = auth.refreshToken().pipe(
+          catchError((e: HttpErrorResponse) => {
+            if (e.status === 401 && e.error?.isRefreshTokenExpired) {
+              auth.logout().pipe(take(1)).subscribe();
+            } else {
+              // Any refresh failure -> force logout to clear invalid session
+              auth.logout().pipe(take(1)).subscribe();
+            }
+            return throwError(() => e);
+          })
+        );
+        return refresh$.pipe(
           switchMap(() => {
             const retried = req.clone({
               setHeaders: {
@@ -38,10 +49,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
               withCredentials: true,
             });
             return next(retried);
-          }),
-          catchError(e => {
-            auth.logout();
-            return throwError(() => e);
           }),
         );
       }

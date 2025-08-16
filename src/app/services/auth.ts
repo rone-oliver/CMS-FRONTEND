@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { tap, finalize } from 'rxjs';
 
 import { Token } from './token';
 import { environment } from '../../environments/environment';
@@ -35,7 +35,7 @@ export class Auth {
     return this._http
       .delete(`${this._url}/auth/logout`, { withCredentials: true })
       .pipe(
-        tap(() => {
+        finalize(() => {
           this._tokenService.removeToken();
           this._router.navigate(['/login']);
         }),

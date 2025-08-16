@@ -18,6 +18,7 @@
 
 .article-card {
   transition: box-shadow 200ms ease, transform 200ms ease;
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: var(--mat-elevation-z8);
@@ -45,4 +46,11 @@
   gap: 0.5rem;
 }
 
-.grow { flex: 1 1 auto; }
+.grow {
+  flex: 1 1 auto;
+}
+
+.btn-primary-container.mat-mdc-raised-button {
+  background-color: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}

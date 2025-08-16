@@ -3,10 +3,11 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Auth } from '../../../services/auth';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-layout',
-  imports: [RouterOutlet, MatToolbarModule, MatButtonModule],
+  imports: [RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user-layout.html',
   styleUrl: './user-layout.scss'

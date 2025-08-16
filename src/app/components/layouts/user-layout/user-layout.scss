@@ -10,3 +10,14 @@ mat-toolbar {
     background: var(--mat-sys-surface);
     color: var(--mat-sys-on-surface);
 }
+
+.btn-secondary-container.mat-mdc-raised-button {
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+}
+
+.btn-error-container.mat-mdc-mini-fab {
+    margin-left: 12px;
+    background-color: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+}

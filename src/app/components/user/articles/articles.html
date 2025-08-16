@@ -11,17 +11,17 @@
     } @else {
       @if (articles().length === 0) {
         <mat-card>
-          <mat-card-content>You haven't created any articles yet.</mat-card-content>
+          <mat-card-content class="center">You haven't created any articles yet.</mat-card-content>
         </mat-card>
         <div class="center" style="margin-top: 12px;">
-          <button mat-raised-button color="primary" (click)="onCreate()">
+          <button mat-raised-button class="btn-primary-container" (click)="onCreate()">
             <mat-icon>add</mat-icon>
             New Article
           </button>
         </div>
       } @else {
         <div class="list-actions" style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
-          <button mat-raised-button color="primary" (click)="onCreate()">
+          <button mat-raised-button class="btn-primary-container" (click)="onCreate()">
             <mat-icon>add</mat-icon>
             New Article
           </button>

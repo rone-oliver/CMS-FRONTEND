@@ -36,8 +36,12 @@ export class UserArticles {
       .pipe(
         takeUntilDestroyed(this._destroyRef),
         catchError((err) => {
+          if (err?.status === 404) {
+            this.error.set(null);
+            return of([] as Article[]);
+          }
           console.error('Failed to load your articles', err);
-          this.error.set('Failed to load your articles');
+          this.error.set(err?.error?.message ?? 'Failed to load your articles');
           return of([] as Article[]);
         }),
         finalize(() => this.loading.set(false))

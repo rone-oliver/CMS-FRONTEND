@@ -35,6 +35,14 @@
     color: var(--mat-sys-on-surface-variant);
 }
 
+.excerpt.expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
+}
+
 .actions {
     display: flex;
     align-items: center;

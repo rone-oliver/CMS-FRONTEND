@@ -23,6 +23,18 @@ export class Dashboard {
   loading = signal(true);
   error = signal<string | null>(null);
   articles = signal<Article[]>([]);
+  
+  expanded = signal<ReadonlySet<string>>(new Set());
+
+  isExpanded(id: string): boolean {
+    return this.expanded().has(id);
+  }
+
+  toggleExpanded(id: string): void {
+    const next = new Set(this.expanded());
+    next.has(id) ? next.delete(id) : next.add(id);
+    this.expanded.set(next);
+  }
 
   constructor() {
     this._user
@@ -31,7 +43,7 @@ export class Dashboard {
         takeUntilDestroyed(this._destroyRef),
         catchError((err) => {
           console.error('Failed to load articles', err);
-          this.error.set('Failed to load articles.');
+          this.error.set(err.error.message || 'Failed to load articles.');
           return of<Article[]>([]);
         }),
         finalize(() => this.loading.set(false)),

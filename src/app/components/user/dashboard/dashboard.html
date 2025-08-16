@@ -23,17 +23,13 @@
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <p class="excerpt">{{ a.content }}</p>
+            <p class="excerpt" [class.expanded]="isExpanded(a.id)">{{ a.content }}</p>
         </mat-card-content>
         <mat-card-actions class="actions">
-            <button mat-stroked-button color="primary">Read more</button>
+            <button mat-stroked-button color="primary" (click)="toggleExpanded(a.id)">
+              {{ isExpanded(a.id) ? 'Show less' : 'Read more' }}
+            </button>
             <span class="grow"></span>
-            <button mat-icon-button aria-label="Like">
-                <mat-icon>favorite_border</mat-icon>
-            </button>
-            <button mat-icon-button aria-label="Share">
-                <mat-icon>share</mat-icon>
-            </button>
         </mat-card-actions>
     </mat-card>
     }

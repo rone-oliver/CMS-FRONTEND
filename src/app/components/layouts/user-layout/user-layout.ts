@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { Auth } from '../../../services/auth';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router, RouterOutlet } from '@angular/router';
+
+import { Auth } from '../../../services/auth';
 
 @Component({
   selector: 'app-user-layout',
   imports: [RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user-layout.html',
-  styleUrl: './user-layout.scss'
+  styleUrl: './user-layout.scss',
 })
 export class UserLayout {
   private readonly _auth = inject(Auth);
@@ -18,14 +19,14 @@ export class UserLayout {
 
   logout() {
     this._auth.logout().subscribe({
-      next:()=>{
+      next: () => {
         console.log('logout success');
         this._router.navigate(['/login']);
       },
-      error:(err)=>{
+      error: (err) => {
         console.error('logout error', err);
         this._router.navigate(['/login']);
-      }
+      },
     });
   }
 

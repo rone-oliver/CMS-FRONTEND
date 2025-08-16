@@ -1,9 +1,10 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Token } from '../services/token';
-import { environment } from '../../environments/environment';
 import { catchError, switchMap, throwError, take } from 'rxjs';
+
+import { environment } from '../../environments/environment';
 import { Auth } from '../services/auth';
+import { Token } from '../services/token';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(Token);
@@ -26,9 +27,9 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   }
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
-      if(isAuthRoute || err.status !== 401) return throwError(()=> err);
+      if (isAuthRoute || err.status !== 401) return throwError(() => err);
 
-      if(err.status === 401 && err.error?.isAccessTokenExpired){
+      if (err.status === 401 && err.error?.isAccessTokenExpired) {
         const refresh$ = auth.refreshToken().pipe(
           catchError((e: HttpErrorResponse) => {
             if (e.status === 401 && e.error?.isRefreshTokenExpired) {
@@ -38,13 +39,13 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
               auth.logout().pipe(take(1)).subscribe();
             }
             return throwError(() => e);
-          })
+          }),
         );
         return refresh$.pipe(
           switchMap(() => {
             const retried = req.clone({
               setHeaders: {
-                Authorization: `Bearer ${tokenService.getToken()}`
+                Authorization: `Bearer ${tokenService.getToken()}`,
               },
               withCredentials: true,
             });
@@ -53,6 +54,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
         );
       }
       return throwError(() => err);
-    })
+    }),
   );
 };

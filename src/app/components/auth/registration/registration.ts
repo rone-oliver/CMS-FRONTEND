@@ -5,10 +5,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Auth } from '../../../services/auth';
 import { AuthForm, AuthField } from '../../shared/auth-form/auth-form';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',

@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+
+import { environment } from '../../environments/environment';
 
 export interface Article {
   id: string;
@@ -36,7 +37,7 @@ export class User {
   }
 
   deleteArticle(id: string) {
-    return this._http.delete<{success: boolean}>(`${this._articleUrl}/${id}`);
+    return this._http.delete<{ success: boolean }>(`${this._articleUrl}/${id}`);
   }
 
   createArticle(article: Omit<Article, 'id' | 'createdAt'>) {

@@ -1,22 +1,34 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDividerModule } from '@angular/material/divider';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, finalize, of } from 'rxjs';
 
 import { User, Article as ArticleModel } from '../../../services/user';
-import { MatDialog } from '@angular/material/dialog';
-import { EditDialog } from '../../mat-dialogs/edit-dialog/edit-dialog';
 import { ConfirmationDialog } from '../../mat-dialogs/confirmation-dialog/confirmation-dialog';
+import { EditDialog } from '../../mat-dialogs/edit-dialog/edit-dialog';
 
 @Component({
   selector: 'app-article',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatDividerModule, DatePipe],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+    DatePipe,
+  ],
   templateUrl: './article.html',
   styleUrl: './article.scss',
 })
@@ -48,7 +60,7 @@ export class Article {
           this.error.set('Failed to load article');
           return of(null);
         }),
-        finalize(() => this.loading.set(false))
+        finalize(() => this.loading.set(false)),
       )
       .subscribe((a) => this.article.set(a));
   }
@@ -101,7 +113,7 @@ export class Article {
               this.error.set('Failed to delete article');
               return of(null);
             }),
-            finalize(() => this.loading.set(false))
+            finalize(() => this.loading.set(false)),
           )
           .subscribe((res) => {
             if (res && res.success) {

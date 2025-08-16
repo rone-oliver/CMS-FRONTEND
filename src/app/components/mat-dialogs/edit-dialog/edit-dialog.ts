@@ -1,15 +1,26 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { catchError, finalize, of } from 'rxjs';
 
 import { User, Article } from '../../../services/user';
 
-type EditDialogData = { article?: Partial<Article> };
+interface EditDialogData {
+  article?: Partial<Article>;
+}
 
 @Component({
   selector: 'app-edit-dialog',
@@ -23,20 +34,26 @@ type EditDialogData = { article?: Partial<Article> };
     ReactiveFormsModule,
   ],
   templateUrl: './edit-dialog.html',
-  styleUrl: './edit-dialog.scss'
+  styleUrl: './edit-dialog.scss',
 })
 export class EditDialog {
   private readonly _fb = inject(FormBuilder);
   private readonly _user = inject(User);
-  private readonly _ref = inject<MatDialogRef<EditDialog, Article | null>>(MatDialogRef);
-  private readonly _data = inject<EditDialogData | undefined>(MAT_DIALOG_DATA, { optional: true }) ?? {};
+  private readonly _ref =
+    inject<MatDialogRef<EditDialog, Article | null>>(MatDialogRef);
+  private readonly _data =
+    inject<EditDialogData | undefined>(MAT_DIALOG_DATA, { optional: true }) ??
+    {};
 
   loading = signal(false);
   error = signal<string | null>(null);
   isCreate = !this._data.article?.id;
 
   form = this._fb.nonNullable.group({
-    title: [this._data.article?.title ?? '', [Validators.required, Validators.maxLength(120)]],
+    title: [
+      this._data.article?.title ?? '',
+      [Validators.required, Validators.maxLength(120)],
+    ],
     content: [this._data.article?.content ?? '', [Validators.required]],
   });
 
@@ -54,16 +71,29 @@ export class EditDialog {
 
     const request$ = this.isCreate
       ? this._user.createArticle({ title, content })
-      : this._user.editArticle({ ...(this._data.article as Article), title, content });
+      : this._user.editArticle({
+          ...(this._data.article as Article),
+          title,
+          content,
+        });
 
     request$
       .pipe(
         catchError((err) => {
-          console.error(this.isCreate ? 'Failed to create article' : 'Failed to edit article', err);
-          this.error.set(this.isCreate ? 'Failed to create article' : 'Failed to save changes');
+          console.error(
+            this.isCreate
+              ? 'Failed to create article'
+              : 'Failed to edit article',
+            err,
+          );
+          this.error.set(
+            this.isCreate
+              ? 'Failed to create article'
+              : 'Failed to save changes',
+          );
           return of(null);
         }),
-        finalize(() => this.loading.set(false))
+        finalize(() => this.loading.set(false)),
       )
       .subscribe((res) => {
         if (res) this._ref.close(res);

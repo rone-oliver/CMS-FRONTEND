@@ -1,33 +1,48 @@
-<h2 mat-dialog-title>{{ isCreate ? 'Create article' : 'Edit article' }}</h2>
+<h2 mat-dialog-title>{{ isCreate ? "Create article" : "Edit article" }}</h2>
 
 <div mat-dialog-content>
-    <mat-form-field appearance="outline" class="full">
-        <mat-label>Title</mat-label>
-        <input matInput [formControl]="form.controls.title" maxlength="120" />
-        @if (form.controls.title.hasError('required')) {
-        <mat-error>Title is required</mat-error>
-        }
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full">
-        <mat-label>Content</mat-label>
-        <textarea matInput rows="8" [formControl]="form.controls.content"></textarea>
-        @if (form.controls.content.hasError('required')) {
-        <mat-error>Content is required</mat-error>
-        }
-    </mat-form-field>
-
-    @if (error()) {
-    <div class="error">{{ error() }}</div>
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>Title</mat-label>
+    <input matInput [formControl]="form.controls.title" maxlength="120" />
+    @if (form.controls.title.hasError("required")) {
+      <mat-error>Title is required</mat-error>
     }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>Content</mat-label>
+    <textarea
+      matInput
+      rows="8"
+      [formControl]="form.controls.content"
+    ></textarea>
+    @if (form.controls.content.hasError("required")) {
+      <mat-error>Content is required</mat-error>
+    }
+  </mat-form-field>
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
 </div>
 
 <div mat-dialog-actions align="end">
-    <button mat-stroked-button (click)="cancel()" [disabled]="loading()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid || loading()">
-        @if (loading()) {
-        <mat-progress-spinner class="btn-spinner" diameter="18" mode="indeterminate"></mat-progress-spinner>
-        }
-        {{ isCreate ? 'Create' : 'Save' }}
-    </button>
+  <button mat-stroked-button (click)="cancel()" [disabled]="loading()">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="save()"
+    [disabled]="form.invalid || loading()"
+  >
+    @if (loading()) {
+      <mat-progress-spinner
+        class="btn-spinner"
+        diameter="18"
+        mode="indeterminate"
+      ></mat-progress-spinner>
+    }
+    {{ isCreate ? "Create" : "Save" }}
+  </button>
 </div>

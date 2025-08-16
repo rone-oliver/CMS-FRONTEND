@@ -1,7 +1,10 @@
 <div class="article">
   @if (loading()) {
     <div class="center">
-      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+      <mat-progress-spinner
+        mode="indeterminate"
+        diameter="40"
+      ></mat-progress-spinner>
     </div>
   } @else {
     @if (error()) {
@@ -34,7 +37,10 @@
 
         <div class="meta-line">
           <mat-icon aria-hidden="true">schedule</mat-icon>
-          <span>{{ a.createdAt | date: 'fullDate' }} at {{ a.createdAt | date: 'shortTime' }}</span>
+          <span
+            >{{ a.createdAt | date: "fullDate" }} at
+            {{ a.createdAt | date: "shortTime" }}</span
+          >
         </div>
 
         <mat-divider></mat-divider>

@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { tap, finalize } from 'rxjs';
 
 import { Token } from './token';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +54,10 @@ export class Auth {
   }
 
   refreshToken() {
-    return this._http.post<{ accessToken: string }>(`${this._url}/auth/refresh`, {}, { withCredentials: true })
+    return this._http
+      .post<{
+        accessToken: string;
+      }>(`${this._url}/auth/refresh`, {}, { withCredentials: true })
       .pipe(
         tap((res: { accessToken: string }) => {
           this._tokenService.setToken(res.accessToken);

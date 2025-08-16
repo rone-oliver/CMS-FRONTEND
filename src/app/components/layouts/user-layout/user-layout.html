@@ -1,11 +1,30 @@
 <mat-toolbar>
   <span>Article Gallery</span>
   <span class="spacer"></span>
-  <div [style.display]="'flex'" [style.justify-content]="'center'" [style.gap.px]="12" [style.margin]="'16px 0'">
-    <button mat-raised-button class="btn-secondary-container" (click)="dashboard()">Dashboard</button>
-    <button mat-raised-button class="btn-secondary-container" (click)="articles()">Articles</button>
+  <div
+    [style.display]="'flex'"
+    [style.justify-content]="'center'"
+    [style.gap.px]="12"
+    [style.margin]="'16px 0'"
+  >
+    <button
+      mat-raised-button
+      class="btn-secondary-container"
+      (click)="dashboard()"
+    >
+      Dashboard
+    </button>
+    <button
+      mat-raised-button
+      class="btn-secondary-container"
+      (click)="articles()"
+    >
+      Articles
+    </button>
   </div>
-  <button mat-mini-fab class="btn-error-container" (click)="logout()"><mat-icon>logout</mat-icon></button>
+  <button mat-mini-fab class="btn-error-container" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

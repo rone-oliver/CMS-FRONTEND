@@ -1,22 +1,34 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDialog } from '@angular/material/dialog';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { catchError, finalize, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { catchError, finalize, of } from 'rxjs';
 
 import { User, Article } from '../../../services/user';
-import { EditDialog } from '../../mat-dialogs/edit-dialog/edit-dialog';
 import { ConfirmationDialog } from '../../mat-dialogs/confirmation-dialog/confirmation-dialog';
+import { EditDialog } from '../../mat-dialogs/edit-dialog/edit-dialog';
 
 @Component({
   selector: 'app-articles',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, DatePipe],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    DatePipe,
+  ],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
 })
@@ -44,7 +56,7 @@ export class UserArticles {
           this.error.set(err?.error?.message ?? 'Failed to load your articles');
           return of([] as Article[]);
         }),
-        finalize(() => this.loading.set(false))
+        finalize(() => this.loading.set(false)),
       )
       .subscribe((arts) => this.articles.set(arts));
   }
@@ -64,7 +76,9 @@ export class UserArticles {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((res: Article | null | undefined) => {
         if (!res) return;
-        const updated = this.articles().map((it) => (it.id === res.id ? res : it));
+        const updated = this.articles().map((it) =>
+          it.id === res.id ? res : it,
+        );
         this.articles.set(updated);
       });
   }
@@ -109,7 +123,7 @@ export class UserArticles {
               this.error.set('Failed to delete article');
               return of(null);
             }),
-            finalize(() => this.loading.set(false))
+            finalize(() => this.loading.set(false)),
           )
           .subscribe((res) => {
             if (res && res.success) {

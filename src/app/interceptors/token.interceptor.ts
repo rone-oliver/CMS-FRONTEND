@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { catchError, switchMap, throwError, take } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Auth } from '../services/auth';
-import { Token } from '../services/token';
+import { Auth } from '../services/auth.service';
+import { Token } from '../services/token.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(Token);

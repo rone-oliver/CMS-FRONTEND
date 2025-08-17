@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Auth } from '../../../services/auth';
+import { Auth } from '../../../services/auth.service';
 import { AuthForm, AuthField } from '../../shared/auth-form/auth-form';
 
 @Component({

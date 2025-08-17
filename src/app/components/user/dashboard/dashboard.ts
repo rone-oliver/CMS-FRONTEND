@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { catchError, finalize, of } from 'rxjs';
 
-import { User, Article } from '../../../services/user';
+import { User, Article } from '../../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',

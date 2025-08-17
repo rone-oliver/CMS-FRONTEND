@@ -15,7 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { catchError, finalize, of } from 'rxjs';
 
-import { User, Article } from '../../../services/user';
+import { User, Article } from '../../../services/user.service';
 import { ConfirmationDialog } from '../../mat-dialogs/confirmation-dialog/confirmation-dialog';
 import { EditDialog } from '../../mat-dialogs/edit-dialog/edit-dialog';
 

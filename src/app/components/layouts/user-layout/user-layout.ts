@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
 
-import { Auth } from '../../../services/auth';
+import { Auth } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-layout',

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, finalize } from 'rxjs';
 
-import { Token } from './token';
+import { Token } from './token.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({

@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { catchError, finalize, of } from 'rxjs';
 
-import { User, Article } from '../../../services/user';
+import { User, Article } from '../../../services/user.service';
 
 interface EditDialogData {
   article?: Partial<Article>;

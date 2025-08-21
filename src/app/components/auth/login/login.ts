@@ -54,7 +54,7 @@ export class Login {
     }
     this.loading = true;
     this._authService.login({ email, password }).subscribe({
-      next: (res) => {
+      next: () => {
         const returnUrl = this._route.snapshot.queryParamMap.get('returnUrl');
         this._router.navigateByUrl(returnUrl || '/user/dashboard');
       },

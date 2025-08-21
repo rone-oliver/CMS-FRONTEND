@@ -1,3 +1,10 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -27,6 +34,25 @@ import { User, Article } from '../../../services/user.service';
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
+  animations: [
+    trigger('articleAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate(
+          '300ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' }),
+        ),
+      ]),
+    ]),
+    trigger('contentExpansion', [
+      state('collapsed', style({ height: '100px', overflow: 'hidden' })),
+      state('expanded', style({ height: '*', overflow: 'auto' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)'),
+      ),
+    ]),
+  ],
 })
 export class Dashboard {
   private readonly _user = inject(User);
@@ -44,7 +70,11 @@ export class Dashboard {
 
   toggleExpanded(id: string): void {
     const next = new Set(this.expanded());
-    next.has(id) ? next.delete(id) : next.add(id);
+    if (next.has(id)) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
     this.expanded.set(next);
   }
 

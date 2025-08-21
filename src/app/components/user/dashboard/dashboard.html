@@ -1,44 +1,56 @@
-<div class="dashboard">
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Article Dashboard</h1>
+    <p>Find the best Article you like from our creators.</p>
+  </header>
+
   @if (loading()) {
     <div class="center">
       <mat-spinner diameter="40" />
     </div>
   } @else if (error()) {
-    <mat-card class="error">
+    <mat-card class="error-card">
+      <mat-card-header>
+        <mat-card-title>Something went wrong</mat-card-title>
+      </mat-card-header>
       <mat-card-content>{{ error() }}</mat-card-content>
     </mat-card>
   } @else {
     @if (articles().length === 0) {
-      <mat-card>
-        <mat-card-content>No articles found.</mat-card-content>
+      <mat-card class="empty-state-card">
+        <mat-card-content>
+          <h2>No articles found.</h2>
+          <p>Start by creating your first article!</p>
+        </mat-card-content>
       </mat-card>
     } @else {
-      @for (a of articles(); track a.id) {
-        <mat-card class="article-card">
-          <mat-card-header>
-            <mat-card-title>{{ a.title }}</mat-card-title>
-            <mat-card-subtitle class="meta">
-              <mat-icon aria-hidden="true">schedule</mat-icon>
-              {{ a.createdAt | date: "medium" }}
-            </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <p class="excerpt" [class.expanded]="isExpanded(a.id)">
-              {{ a.content }}
-            </p>
-          </mat-card-content>
-          <mat-card-actions class="actions">
-            <button
-              mat-stroked-button
-              color="primary"
-              (click)="toggleExpanded(a.id)"
+      <div class="articles-grid">
+        @for (a of articles(); track a.id) {
+          <mat-card class="article-card" @articleAnimation>
+            <mat-card-header>
+              <mat-card-title>{{ a.title }}</mat-card-title>
+              <mat-card-subtitle class="meta">
+                <mat-icon aria-hidden="true">schedule</mat-icon>
+                <span>{{ a.createdAt | date: "medium" }}</span>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content
+              class="article-content"
+              [@contentExpansion]="isExpanded(a.id) ? 'expanded' : 'collapsed'"
             >
-              {{ isExpanded(a.id) ? "Show less" : "Read more" }}
-            </button>
-            <span class="grow"></span>
-          </mat-card-actions>
-        </mat-card>
-      }
+              <p class="excerpt">{{ a.content }}</p>
+            </mat-card-content>
+            <mat-card-actions class="actions">
+              <button mat-button color="primary" (click)="toggleExpanded(a.id)">
+                {{ isExpanded(a.id) ? "Show less" : "Read more" }}
+                <mat-icon>{{
+                  isExpanded(a.id) ? "expand_less" : "expand_more"
+                }}</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
     }
   }
 </div>

@@ -1,12 +1,7 @@
-<mat-toolbar>
-  <span>Article Gallery</span>
+<mat-toolbar class="toolbar">
+  <span class="title">Article Gallery</span>
   <span class="spacer"></span>
-  <div
-    [style.display]="'flex'"
-    [style.justify-content]="'center'"
-    [style.gap.px]="12"
-    [style.margin]="'16px 0'"
-  >
+  <div class="actions">
     <button
       mat-raised-button
       class="btn-secondary-container"
@@ -22,7 +17,7 @@
       Articles
     </button>
   </div>
-  <button mat-mini-fab class="btn-error-container" (click)="logout()">
+  <button mat-mini-fab class="btn-error-container logout" (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>

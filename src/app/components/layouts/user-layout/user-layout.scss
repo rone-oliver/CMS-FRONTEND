@@ -11,6 +11,64 @@ mat-toolbar {
     color: var(--mat-sys-on-surface);
 }
 
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.logout {
+  margin-left: 12px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .toolbar {
+    flex-wrap: wrap;
+    padding-inline: 8px;
+    height: auto;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .title {
+    flex: 1 1 auto;
+  }
+
+  .logout {
+    order: 2;
+    margin-left: auto;
+    margin-top: 8px;
+  }
+
+  .actions {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+}
+
 .btn-secondary-container.mat-mdc-raised-button {
     background-color: var(--mat-sys-secondary-container);
     color: var(--mat-sys-on-secondary-container);

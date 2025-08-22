@@ -18,12 +18,12 @@ import { catchError, finalize, of } from 'rxjs';
 
 import { User, Article } from '../../../services/user.service';
 
-interface EditDialogData {
+interface ArticleDialogData {
   article?: Partial<Article>;
 }
 
 @Component({
-  selector: 'app-edit-dialog',
+  selector: 'app-article-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatDialogModule,
@@ -33,17 +33,18 @@ interface EditDialogData {
     MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './edit-dialog.html',
-  styleUrl: './edit-dialog.scss',
+  templateUrl: './article-dialog.html',
+  styleUrl: './article-dialog.scss',
 })
-export class EditDialog {
+export class ArticleDialog {
   private readonly _fb = inject(FormBuilder);
   private readonly _user = inject(User);
   private readonly _ref =
-    inject<MatDialogRef<EditDialog, Article | null>>(MatDialogRef);
+    inject<MatDialogRef<ArticleDialog, Article | null>>(MatDialogRef);
   private readonly _data =
-    inject<EditDialogData | undefined>(MAT_DIALOG_DATA, { optional: true }) ??
-    {};
+    inject<ArticleDialogData | undefined>(MAT_DIALOG_DATA, {
+      optional: true,
+    }) ?? {};
 
   loading = signal(false);
   error = signal<string | null>(null);

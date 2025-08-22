@@ -16,8 +16,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, finalize, of } from 'rxjs';
 
 import { User, Article as ArticleModel } from '../../../services/user.service';
+import { ArticleDialog } from '../../mat-dialogs/article-dialog/article-dialog';
 import { ConfirmationDialog } from '../../mat-dialogs/confirmation-dialog/confirmation-dialog';
-import { EditDialog } from '../../mat-dialogs/edit-dialog/edit-dialog';
 
 @Component({
   selector: 'app-article',
@@ -72,9 +72,8 @@ export class Article {
   edit() {
     const a = this.article();
     if (!a) return;
-    const ref = this._dialog.open(EditDialog, {
+    const ref = this._dialog.open(ArticleDialog, {
       data: { article: a },
-      width: '640px',
       disableClose: true,
     });
     ref

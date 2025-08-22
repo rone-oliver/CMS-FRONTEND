@@ -1,59 +1,97 @@
-# Frontend
+# Frontend (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+This is the Angular frontend for the CMS. It uses Angular CLI 20.
 
-## Development server
+## Prerequisites
 
-To start a local development server, run:
+- Node.js and npm installed
+- Angular CLI (optional, scripts use the local CLI)
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Setup
 
 ```bash
-ng generate component component-name
+# from repo root
+cd frontend
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Running (dev server)
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+- Opens at http://localhost:5201/
+- Reloads automatically on source changes
 
-To build the project run:
+## Available scripts (from `package.json`)
+
+```json
+{
+  "start": "ng serve",
+  "build": "ng build",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test",
+  "lint": "ng lint",
+  "lint:fix": "ng lint --fix"
+}
+```
+
+Common usage:
+
+- Build (production): `npm run build` → outputs to `dist/`
+- Watch build (dev): `npm run watch`
+- Unit tests: `npm test`
+- Lint: `npm run lint`
+- Lint with fixes: `npm run lint:fix`
+
+## Environments
+
+Angular environment files live in `src/environments/`:
+
+- `environment.ts` (development)
+- `environment.prod.ts` (production)
+
+Use `ng build --configuration production` (used by `npm run build`) for production settings.
+
+## Code scaffolding (optional)
+
+You can generate code via Angular CLI:
 
 ```bash
-ng build
+npx ng generate component my-feature
+npx ng generate service my-service
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Run `npx ng generate --help` for more schematics.
 
-## Running unit tests
+## Testing
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Unit tests use Karma/Jasmine: `npm test`
+- No e2e setup by default; choose and configure your preferred e2e framework as needed.
 
-```bash
-ng test
-```
+## Linting & formatting
 
-## Running end-to-end tests
+- ESLint + Angular ESLint are configured. Run `npm run lint`.
+- Prettier is configured for templates (see `prettier` overrides in `package.json`).
 
-For end-to-end (e2e) testing, run:
+## Project structure
 
-```bash
-ng e2e
-```
+- App code in `src/app/`
+- Static assets in `src/assets/`
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Author & metadata
 
-## Additional Resources
+- Author: Antony Rone Oliver
+- Contact: roneootan611@gmail.com
+- License: MIT
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file at the repository root for full text.
+
+---
+
+For more CLI details, see the Angular CLI docs: https://angular.dev/tools/cli

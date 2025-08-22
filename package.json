@@ -1,6 +1,8 @@
 {
   "name": "frontend",
   "version": "0.0.0",
+  "author": "Antony Rone Oliver <roneootan611@gmail.com>",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "ng": "ng",
@@ -21,7 +23,7 @@
       }
     ]
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^20.2.1",
     "@angular/cdk": "^20.2.0",

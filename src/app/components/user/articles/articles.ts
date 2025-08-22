@@ -16,8 +16,8 @@ import { Router } from '@angular/router';
 import { catchError, finalize, of } from 'rxjs';
 
 import { User, Article } from '../../../services/user.service';
+import { ArticleDialog } from '../../mat-dialogs/article-dialog/article-dialog';
 import { ConfirmationDialog } from '../../mat-dialogs/confirmation-dialog/confirmation-dialog';
-import { EditDialog } from '../../mat-dialogs/edit-dialog/edit-dialog';
 
 @Component({
   selector: 'app-articles',
@@ -66,9 +66,8 @@ export class UserArticles {
   }
 
   onEdit(a: Article) {
-    const ref = this._dialog.open(EditDialog, {
+    const ref = this._dialog.open(ArticleDialog, {
       data: { article: a },
-      width: '640px',
       disableClose: true,
     });
     ref
@@ -84,8 +83,7 @@ export class UserArticles {
   }
 
   onCreate() {
-    const ref = this._dialog.open(EditDialog, {
-      width: '640px',
+    const ref = this._dialog.open(ArticleDialog, {
       disableClose: true,
     });
     ref
@@ -105,7 +103,6 @@ export class UserArticles {
         confirmText: 'Delete',
         cancelText: 'Cancel',
       },
-      width: '400px',
       disableClose: true,
     });
     ref

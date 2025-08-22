@@ -10,6 +10,16 @@
   padding: 2rem;
 }
 
+.list-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.create-cta {
+  margin-top: 12px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -18,6 +28,7 @@
 
 .article-card {
   transition: box-shadow 200ms ease, transform 200ms ease;
+  min-width: 0;
 
   &:hover {
     transform: translateY(-2px);
@@ -38,6 +49,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: var(--mat-sys-on-surface-variant);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .actions {
@@ -53,4 +66,21 @@
 .btn-primary-container.mat-mdc-raised-button {
   background-color: var(--mat-sys-primary-container);
   color: var(--mat-sys-on-primary-container);
+}
+
+@media (max-width: 600px) {
+  .articles {
+    padding-inline: 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .articles {
+    padding-inline: 12px;
+  }
 }

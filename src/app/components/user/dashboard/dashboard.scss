@@ -38,6 +38,7 @@
 }
 
 .article-card {
+    min-width: 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 8px;
     overflow: hidden;
@@ -75,6 +76,8 @@
             padding: 1rem 0;
             line-height: 1.6;
             overflow: hidden;
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
     }
 
@@ -91,9 +94,21 @@
     }
 }
 
-.error-card, .empty-state-card {
+.error-card,
+.empty-state-card {
     text-align: center;
     padding: 2rem;
     background-color: var(--mat-sys-surface-container-high);
     border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    .dashboard-container {
+        padding-inline: 12px;
+    }
+
+    .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }
